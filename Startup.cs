@@ -7,8 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+using TripAngular4Core.Domain;
+using Microsoft.EntityFrameworkCore;
 
-namespace Trip_Angular4Core
+namespace TripAngular4Core
 {
     public class Startup
     {
@@ -22,6 +25,12 @@ namespace Trip_Angular4Core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var config = new ConfigurationBuilder()
+                       .SetBasePath(Directory.GetCurrentDirectory())
+                       .AddJsonFile("appsettings.json")
+                       .Build();
+            var connection = config.GetConnectionString("DefaultConnection");
+            services.AddDbContext<Context>(options => options.UseSqlServer(connection));
             services.AddMvc();
         }
 

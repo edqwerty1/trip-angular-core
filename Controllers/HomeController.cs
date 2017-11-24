@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Trip_Angular4Core.Controllers
+namespace TripAngular4Core.Controllers
 {
     public class HomeController : Controller
     {

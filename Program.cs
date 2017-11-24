@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Trip_Angular4Core
+namespace TripAngular4Core
 {
     public class Program
     {
