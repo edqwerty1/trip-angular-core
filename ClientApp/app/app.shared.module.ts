@@ -15,7 +15,11 @@ import { CounterComponent } from './components/counter/counter.component';
 import { TripComponent } from './components/trip/trip.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { LoginButtonComponent } from './components/loginbutton/login-button.component';
+import { RegisterButtonComponent } from './components/registerbutton/register-button.component';
 import { LoginModalComponent } from './components/loginmodal/login-modal.component';
+import { RegisterModalComponent } from './components/registermodal/register-modal.component';
+
+
 import { UserStoreService } from './services/user.service';
 
 @NgModule({
@@ -28,7 +32,9 @@ import { UserStoreService } from './services/user.service';
         TripComponent,
         BannerComponent,
         LoginButtonComponent,
-        LoginModalComponent
+        RegisterButtonComponent,
+        LoginModalComponent,
+        RegisterModalComponent,
     ],
     imports: [
         CommonModule,
@@ -49,7 +55,8 @@ import { UserStoreService } from './services/user.service';
     bootstrap: [AppComponent],
     providers:[UserStoreService],
     entryComponents: [
-        LoginModalComponent
+        LoginModalComponent,
+        RegisterModalComponent
     ]
 
 })

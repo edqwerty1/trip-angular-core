@@ -15,7 +15,7 @@ export class LoginButtonComponent implements OnInit {
     }
 
     openModal() {
-        console.log("hit");
+
         const modalRef = this.modalService.open(LoginModalComponent);
   
     }
