@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {UserStoreService} from './user.service';
+import {UserStoreService} from '../../services/user.service';
 import {Observable} from 'rxjs/RX';
-import {IUser} from './models/user';
-import {LoginModalComponent} from './login-modal.component';
-
+import {IUser} from '../../models/user';
+import {LoginModalComponent} from '../loginmodal/login-modal.component';
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'login-button',
-    templateUrl: 'app/login-button.component.html',
-    directives: [LoginModalComponent]
+    templateUrl: './login-button.component.html',
 })
 export class LoginButtonComponent implements OnInit {
     user$: Observable<IUser>;
     user: IUser;
-    modalOpen: boolean = false;
-    constructor(private _userService: UserStoreService) {
+    constructor(private _userService: UserStoreService, private modalService: NgbModal) {
     }
 
     openModal() {
-        this.modalOpen = true;
+        console.log("hit");
+        const modalRef = this.modalService.open(LoginModalComponent);
+  
     }
 
     ngOnInit() {

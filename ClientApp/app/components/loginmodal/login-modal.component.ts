@@ -1,47 +1,33 @@
 import { Component, ViewChild, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/common';
-import {UserStoreService} from './user.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {UserStoreService} from '../../services/user.service';
 import {Observable} from 'rxjs/RX';
-import {Modal, IModalOptions} from './modal';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'login-modal',
-    templateUrl: 'app/login-modal.component.html',
-    directives: []
+    templateUrl: './login-modal.component.html',
 })
-export class LoginModalComponent implements AfterViewInit {
-    submitted = false;
-    loginFormModel: any;
-    modal: Modal;
-    modalContent = ``;
-  @Output() open: EventEmitter<any> = new EventEmitter();
-  @Output() close: EventEmitter<any> = new EventEmitter();
+export class LoginModalComponent implements OnInit {
+ loginFormModel: FormGroup;
 
-    constructor(private _userService: UserStoreService, private _formBuilder: FormBuilder) {
-        this.loginFormModel = this._formBuilder.group({
-            'username': ['', Validators.required],
-            'password': ['', Validators.required]
-        });
+    constructor(private _userService: UserStoreService, public activeModal: NgbActiveModal) {
+
     }
 
-ngAfterViewInit() {
-var newDiv = document.getElementById('login-button-modal');
-        var modalOptions: IModalOptions = {
-            backdrop: true,
-            keyboard: true,
-            duration: 0,
-            overlay: document.getElementById('login-button-modal-overlay')
-            // content: this.modalContent
-        };
-        this.modal = new Modal(newDiv, modalOptions);
-        this.modal.open();
-        this.open.emit(null);
-}
+ngOnInit(): void {
+    this.loginFormModel = new FormGroup({
+      'username': new FormControl('', [
+        Validators.required,
+        Validators.minLength(2)
+      ]),
+      'password': new FormControl('', [
+        Validators.required,
+        Validators.minLength(2)
+      ])
+    });
+  }
 
-    closeModal() {
-        this.modal.close();
-         this.close.emit(null);
-    }
 
     onSubmit() {
         this.loginFormModel.markAsDirty();
@@ -55,17 +41,23 @@ var newDiv = document.getElementById('login-button-modal');
             this.login();
         }
     }
+  get username() { return this.loginFormModel.get('username');}
+
+  get password() { return this.loginFormModel.get('password'); }
 
     login() {
-        this.submitted = true;
-        this._userService.login(this.loginFormModel.value.username, this.loginFormModel.value.password)
+      
+        this._userService.login(this.loginFormModel.get('username')!.value, this.loginFormModel.get('password')!.value)
         .then(() => {
-            this.modal.close();
-            this.close.emit(null);
+            this.activeModal.dismiss("Saved");
         }).catch(
             error => {
-                alert(error.text());
-                console.log(error.text());
+                alert(error);
+                console.log(error);
             });
+    }
+
+    closeModal(){
+        this.activeModal.dismiss("Closed");
     }
 }

@@ -1,6 +1,6 @@
-import {bootstrap}    from '@angular/platform-browser-dynamic';
-import {AppComponent} from './app.component';
+// import {bootstrap}    from '@angular/platform-browser-dynamic';
+// import {AppComponent} from './app.component';
 
-bootstrap(AppComponent);
+// bootstrap(AppComponent);
 
-// api key AIzaSyCcGzz_tZMrgkoArtY3GmnsWoJsAoNJ8fM
+// // api key AIzaSyCcGzz_tZMrgkoArtY3GmnsWoJsAoNJ8fM

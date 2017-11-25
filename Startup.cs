@@ -30,7 +30,8 @@ namespace TripAngular4Core
                        .AddJsonFile("appsettings.json")
                        .Build();
             var connection = config.GetConnectionString("DefaultConnection");
-            services.AddDbContext<Context>(options => options.UseSqlServer(connection));
+            // services.AddDbContext<Context>(options => options.UseSqlServer(connection));
+            services.AddDbContext<Context>(options => options.UseSqlite("Data Source=blogging.db"));
             services.AddMvc();
         }
 

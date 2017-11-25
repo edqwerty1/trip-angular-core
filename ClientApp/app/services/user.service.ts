@@ -1,4 +1,4 @@
-import {IUser} from './models/user';
+import {IUser} from '../models/user';
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {Observable, Observer} from 'rxjs/RX';
@@ -14,7 +14,7 @@ export class UserStoreService {
     };
 
     constructor(private _http: Http) {
-        this._dataStore = {user: { displayName: null, id: null, username: null}};
+        this._dataStore = {user: { displayName: "", id: "", username: ""}};
 
         this.user$ = new Observable<IUser>(observer => this._userObserver = observer)
             .startWith(this._dataStore.user)

@@ -1,4 +1,2 @@
 <div *ngIf="!!user.displayName">Hi {{user.displayName}}</div>
 <button *ngIf="!user.displayName" type="button" class="btn btn-default navbar-btn" (click)="openModal()">Login</button>
-
-<login-modal (open)="modalOpen = true" (close)="modalOpen = false" *ngIf="modalOpen"></login-modal>
