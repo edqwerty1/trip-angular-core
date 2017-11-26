@@ -23,10 +23,13 @@ import { RegisterModalComponent } from './components/registermodal/register-moda
 import { LocationsComponent } from './components/locations/locations.component';
 import { LocationThumbnailComponent } from './components/locationthumbnail/location-thumbnail.component';
 import { VoteComponent } from './components/vote/vote.component';
+import { MapComponent } from './components/map/map.component';
+import { ShowMapComponent } from './components/showmap/show-map.component';
 
 
 import { UserStoreService } from './services/user.service';
 import { LocationStoreService } from './services/location-store.service';
+import { MapService } from './services/map.service';
 
 @NgModule({
     declarations: [
@@ -45,7 +48,9 @@ import { LocationStoreService } from './services/location-store.service';
         LocationThumbnailComponent,
         VoteComponent,
         AddLocationButtonComponent,
-        AddLocationModalComponent
+        AddLocationModalComponent,
+        MapComponent,
+ShowMapComponent
     ],
     imports: [
         CommonModule,
@@ -64,7 +69,9 @@ import { LocationStoreService } from './services/location-store.service';
        // NgbModalModule.forRoot()
     ],
     bootstrap: [AppComponent],
-    providers:[UserStoreService, LocationStoreService],
+    providers:[UserStoreService, 
+                LocationStoreService,
+                MapService],
     entryComponents: [
         LoginModalComponent,
         RegisterModalComponent,
