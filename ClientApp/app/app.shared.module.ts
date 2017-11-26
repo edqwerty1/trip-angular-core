@@ -16,11 +16,17 @@ import { TripComponent } from './components/trip/trip.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { LoginButtonComponent } from './components/loginbutton/login-button.component';
 import { RegisterButtonComponent } from './components/registerbutton/register-button.component';
+import { AddLocationButtonComponent } from './components/addlocation/add-location.component';
 import { LoginModalComponent } from './components/loginmodal/login-modal.component';
+import { AddLocationModalComponent } from './components/addlocationmodal/add-location-modal.component';
 import { RegisterModalComponent } from './components/registermodal/register-modal.component';
+import { LocationsComponent } from './components/locations/locations.component';
+import { LocationThumbnailComponent } from './components/locationthumbnail/location-thumbnail.component';
+import { VoteComponent } from './components/vote/vote.component';
 
 
 import { UserStoreService } from './services/user.service';
+import { LocationStoreService } from './services/location-store.service';
 
 @NgModule({
     declarations: [
@@ -35,6 +41,11 @@ import { UserStoreService } from './services/user.service';
         RegisterButtonComponent,
         LoginModalComponent,
         RegisterModalComponent,
+        LocationsComponent,
+        LocationThumbnailComponent,
+        VoteComponent,
+        AddLocationButtonComponent,
+        AddLocationModalComponent
     ],
     imports: [
         CommonModule,
@@ -53,10 +64,11 @@ import { UserStoreService } from './services/user.service';
        // NgbModalModule.forRoot()
     ],
     bootstrap: [AppComponent],
-    providers:[UserStoreService],
+    providers:[UserStoreService, LocationStoreService],
     entryComponents: [
         LoginModalComponent,
-        RegisterModalComponent
+        RegisterModalComponent,
+        AddLocationModalComponent
     ]
 
 })
