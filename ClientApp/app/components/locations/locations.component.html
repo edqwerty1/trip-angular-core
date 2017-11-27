@@ -1,7 +1,5 @@
-
-        <div class="row">
-        
-        <div  *ngFor="let location of locations | async">
-            <location-thumbnail [location]="location"></location-thumbnail>
-        </div>
-        </div>
+<div class="row">
+    <div *ngFor="let location of locations | async">
+        <location-thumbnail [location]="location"></location-thumbnail>
+    </div>
+</div>

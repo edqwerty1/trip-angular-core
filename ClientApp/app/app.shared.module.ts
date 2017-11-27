@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import {NgbModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -50,7 +50,7 @@ import { MapService } from './services/map.service';
         AddLocationButtonComponent,
         AddLocationModalComponent,
         MapComponent,
-ShowMapComponent
+        ShowMapComponent
     ],
     imports: [
         CommonModule,
@@ -66,12 +66,14 @@ ShowMapComponent
             { path: '**', redirectTo: 'trip' }
         ]),
         NgbModule.forRoot(),
-       // NgbModalModule.forRoot()
+        // NgbModalModule.forRoot()
     ],
     bootstrap: [AppComponent],
-    providers:[UserStoreService, 
-                LocationStoreService,
-                MapService],
+    providers: [
+        UserStoreService,
+        LocationStoreService,
+        MapService
+    ],
     entryComponents: [
         LoginModalComponent,
         RegisterModalComponent,

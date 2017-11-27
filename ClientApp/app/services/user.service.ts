@@ -1,10 +1,11 @@
-import {IUser} from '../models/user';
+import { IUser } from '../models/user';
 import { Injectable } from '@angular/core';
-import {Http, Response, Headers} from '@angular/http';
-import {Observable, Observer} from 'rxjs/RX';
+import { Http, Response, Headers } from '@angular/http';
+import { Observable, Observer } from 'rxjs/RX';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/startWith';
-import {Hosts} from './hosts';
+import { Hosts } from './hosts';
+
 @Injectable()
 export class UserStoreService {
     user$: Observable<IUser>;
@@ -14,7 +15,7 @@ export class UserStoreService {
     };
 
     constructor(private _http: Http) {
-        this._dataStore = {user: { displayName: "", id: "", username: ""}};
+        this._dataStore = { user: { displayName: "", id: "", username: "" } };
 
         this.user$ = new Observable<IUser>(observer => this._userObserver = observer)
             .startWith(this._dataStore.user)
@@ -23,7 +24,7 @@ export class UserStoreService {
 
     login(username: string, password: string): Promise<void> {
         let body = JSON.stringify({ 'username': username, 'password': password });
-         var headers = new Headers();
+        var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this._http.post(`${Hosts.Host}/user/login`, body, { headers: headers })
             .map((res: Response) => res.json())
@@ -41,7 +42,7 @@ export class UserStoreService {
 
     register(username: string, password: string, displayName: string): Promise<void> {
         let body = JSON.stringify({ 'username': username, 'password': password, 'displayName': displayName });
-         var headers = new Headers();
+        var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this._http.post(`${Hosts.Host}/user/create`, body, { headers: headers })
             .map((res: Response) => res.json())

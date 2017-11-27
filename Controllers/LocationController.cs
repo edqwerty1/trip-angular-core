@@ -97,7 +97,7 @@ namespace Trip_Angular4Core.Controllers
             public Guid UserId { get; set; }
         }
 
-        [HttpPost("location/{locationId:guid}/upvote")]
+        [HttpPost("{locationId:guid}/upvote")]
         public IActionResult UpVote(Guid locationId, [FromBody]Vote voteDto)
         {
             var tokenString = Request.Headers["token"];
@@ -136,7 +136,7 @@ namespace Trip_Angular4Core.Controllers
             return Ok();
         }
 
-        [HttpPost("location/{locationId:guid}/downvote")]
+        [HttpPost("{locationId:guid}/downvote")]
         public IActionResult DownVote(Guid locationId, [FromBody]Vote voteDto)
         {
             var tokenString = Request.Headers["token"];

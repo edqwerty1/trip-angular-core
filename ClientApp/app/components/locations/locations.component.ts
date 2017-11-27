@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs/RX';
-import {LocationStoreService} from '../../services/location-store.service';
-import {ILocation} from '../../models/locations';
-import {LocationThumbnailComponent} from '../locationThumbnail/location-thumbnail.component';
+import { Observable } from 'rxjs/RX';
+import { LocationStoreService } from '../../services/location-store.service';
+import { ILocation } from '../../models/locations';
+import { LocationThumbnailComponent } from '../locationThumbnail/location-thumbnail.component';
 
 @Component({
     selector: 'locations',

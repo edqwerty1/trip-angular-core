@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Observable} from 'rxjs/RX';
-import {LocationStoreService} from '../../services/location-store.service';
-import {ILocation} from '../../models/locations';
+import { Observable } from 'rxjs/RX';
+import { LocationStoreService } from '../../services/location-store.service';
+import { ILocation } from '../../models/locations';
 
 @Component({
     selector: 'vote',
@@ -18,9 +18,9 @@ export class VoteComponent implements OnInit {
     }
 
     ngOnInit() {
-       this.score = this.location.upVotes.length - this.location.downVotes.length;
-       this.upVoted = !this.location.upVotes.every((id) => id !== localStorage.getItem('userId'));
-       this.downVoted = !this.location.downVotes.every((id) => id !== localStorage.getItem('userId'));
+        this.score = this.location.upVotes.length - this.location.downVotes.length;
+        this.upVoted = !this.location.upVotes.every((id) => id !== localStorage.getItem('userId'));
+        this.downVoted = !this.location.downVotes.every((id) => id !== localStorage.getItem('userId'));
     }
 
     upVote() {

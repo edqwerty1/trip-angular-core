@@ -1,10 +1,10 @@
-import {ILocations, ILocation} from '../models/locations';
+import { ILocations, ILocation } from '../models/locations';
 import { Injectable } from '@angular/core';
-import {Http, Response, Headers} from '@angular/http';
-import {Observable, Observer} from 'rxjs/RX';
+import { Http, Response, Headers } from '@angular/http';
+import { Observable, Observer } from 'rxjs/RX';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/startWith';
-import {Hosts} from './hosts';
+import { Hosts } from './hosts';
 
 @Injectable()
 export class LocationStoreService {
@@ -22,13 +22,13 @@ export class LocationStoreService {
             .share();
     };
 
-    addLocation(location: ILocation){
-         let body = JSON.stringify(location);
-         var headers = new Headers();
+    addLocation(location: ILocation) {
+        let body = JSON.stringify(location);
+        var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('token', localStorage.getItem('jwt')!); // TODO replace with using userstore
-           return this._http.put(`${Hosts.Host}/Location/Location`, body, { headers: headers })
-           
+        return this._http.put(`${Hosts.Host}/Location/Location`, body, { headers: headers })
+
             .toPromise()
             .then(() => {
                 this.loadLocations();
@@ -50,6 +50,7 @@ export class LocationStoreService {
     upVote(locationId: string) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('token', localStorage.getItem('jwt')!); // TODO replace with using userstore
         this._http.post(`${Hosts.Host}/location/${locationId}/upVote`,
             JSON.stringify({ 'userId': localStorage.getItem('userId') }),
             { headers: headers })
@@ -62,6 +63,7 @@ export class LocationStoreService {
     downVote(locationId: string) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('token', localStorage.getItem('jwt')!); // TODO replace with using userstore
         this._http.post(`${Hosts.Host}/location/${locationId}/downVote`,
             JSON.stringify({ 'userId': localStorage.getItem('userId') }),
             { headers: headers })
