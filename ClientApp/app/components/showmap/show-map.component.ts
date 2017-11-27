@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
     <button type="button" class="btn btn-default" (click)="showMaps = !showMaps">
     Show Map
 </button>
-<maps *ngIf="showMaps"></maps>
+<div *ngIf="showMaps" style="height:400px; width:50%;">
+<maps ></maps>
+</div>
     `,
 })
 export class ShowMapComponent {

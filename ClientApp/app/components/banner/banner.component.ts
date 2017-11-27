@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./banner.component.css']
 })
 export class BannerComponent {
+    onScroll() {
 
+    }
 }

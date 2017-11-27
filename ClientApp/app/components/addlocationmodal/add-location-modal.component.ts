@@ -26,7 +26,14 @@ export class AddLocationModalComponent implements OnInit {
                 Validators.required,
                 Validators.minLength(2)
             ]),
-            'imageUrl': new FormControl('')
+            'imageUrl': new FormControl(''),
+            'nights': new FormControl(''),
+            'address1': new FormControl(''),
+            'address2': new FormControl(''),
+            'address3': new FormControl(''),
+            'address4': new FormControl(''),
+            'address5': new FormControl(''),
+            'postcode': new FormControl('')
         });
     }
 
@@ -44,19 +51,31 @@ export class AddLocationModalComponent implements OnInit {
         }
     }
     get name() { return this.addLocationFormModel.get('name'); }
-
     get price() { return this.addLocationFormModel.get('price'); }
-    get imageUrl() { return this.addLocationFormModel.get('imageUrl'); }
+    get nights() { return this.addLocationFormModel.get('nights'); }
+    get address1() { return this.addLocationFormModel.get('address1'); }
+    get address2() { return this.addLocationFormModel.get('address2'); }
+    get address3() { return this.addLocationFormModel.get('address3'); }
+    get address4() { return this.addLocationFormModel.get('address4'); }
+    get address5() { return this.addLocationFormModel.get('address5'); }
+    get postcode() { return this.addLocationFormModel.get('postcode'); }
 
     addLocation() {
 
         let location: ILocation = {
             id: this.newGuid(),
             name: this.addLocationFormModel.get('name')!.value,
-            address: null,
+            address: {
+                address1: this.addLocationFormModel.get('address1')!.value,
+                address2: this.addLocationFormModel.get('address2')!.value,
+                address3: this.addLocationFormModel.get('address3')!.value,
+                address4: this.addLocationFormModel.get('address4')!.value,
+                address5: this.addLocationFormModel.get('address5')!.value,
+                postcode: this.addLocationFormModel.get('postcode')!.value,
+            },
             price: this.addLocationFormModel.get('price')!.value,
             imageUrl: this.addLocationFormModel.get('imageUrl')!.value,
-            nights: 3,
+            nights: this.addLocationFormModel.get('nights')!.value,
             upVotes: [],
             downVotes: []
         };
