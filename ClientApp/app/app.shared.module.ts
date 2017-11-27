@@ -63,7 +63,7 @@ ShowMapComponent
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'trip', component: TripComponent },
-            { path: '**', redirectTo: 'home' }
+            { path: '**', redirectTo: 'trip' }
         ]),
         NgbModule.forRoot(),
        // NgbModalModule.forRoot()

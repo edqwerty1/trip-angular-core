@@ -26,11 +26,11 @@ export class LocationStoreService {
          let body = JSON.stringify(location);
          var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        headers.append('token', localStorage.getItem('userId')!);
+        headers.append('token', localStorage.getItem('jwt')!); // TODO replace with using userstore
            return this._http.put(`${Hosts.Host}/Location/Location`, body, { headers: headers })
-            .map((res: Response) => res.json())
+           
             .toPromise()
-            .then(response => {
+            .then(() => {
                 this.loadLocations();
             });
     }

@@ -57,12 +57,13 @@ namespace Trip_Angular4Core.Controllers
                 return Unauthorized();
 
 
-            var location = locationDto.Id == null ?
-                             new Location() :
-                            _context.Locations.Include(t => t.Address).FirstOrDefault(t => t.Id == locationDto.Id.Value);
+            var location = _context.Locations.Include(t => t.Address).FirstOrDefault(t => t.Id == locationDto.Id.Value);
 
             if (location == null)
-                return NotFound("Location matching Id Not found");
+            {
+                location = new Location { Id = Guid.NewGuid() };
+                _context.Locations.Add(location);
+            }
 
             if (location.Address == null)
                 location.Address = locationDto.Address ?? new Address();
@@ -85,10 +86,9 @@ namespace Trip_Angular4Core.Controllers
 
             if (location.Address?.Id == Guid.Empty)
                 location.Address.Id = Guid.NewGuid();
-
-            if (locationDto.Id == null)
-                _context.Locations.Add(location);
+               
             _context.SaveChanges();
+
             return Ok();
         }
 
@@ -97,7 +97,7 @@ namespace Trip_Angular4Core.Controllers
             public Guid UserId { get; set; }
         }
 
-        [Route("location/{locationId:guid}/upvote")]
+        [HttpPost("location/{locationId:guid}/upvote")]
         public IActionResult UpVote(Guid locationId, [FromBody]Vote voteDto)
         {
             var tokenString = Request.Headers["token"];
@@ -136,7 +136,7 @@ namespace Trip_Angular4Core.Controllers
             return Ok();
         }
 
-        [Route("location/{locationId:guid}/downvote")]
+        [HttpPost("location/{locationId:guid}/downvote")]
         public IActionResult DownVote(Guid locationId, [FromBody]Vote voteDto)
         {
             var tokenString = Request.Headers["token"];
