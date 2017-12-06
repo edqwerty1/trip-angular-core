@@ -1,5 +1,5 @@
 <div class="row">
-    <div *ngFor="let location of locations | async">
+    <div class="col-sm-6 col-md-3" *ngFor="let location of locations | async">
         <location-thumbnail [location]="location"></location-thumbnail>
     </div>
 </div>
