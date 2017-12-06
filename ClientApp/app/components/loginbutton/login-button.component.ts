@@ -24,7 +24,6 @@ export class LoginButtonComponent implements OnInit {
         this.user$ = this._userService.user$;
         this.user$.subscribe((data) => {
             this.user = data;
-            console.log(data);
         });
     }
 }

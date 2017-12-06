@@ -11,7 +11,6 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class RegisterButtonComponent implements OnInit {
     user$: Observable<IUser>;
-    user: IUser;
     showButton:boolean = true;
     constructor(private _userService: UserStoreService, private modalService: NgbModal) {
 
@@ -22,9 +21,10 @@ export class RegisterButtonComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.showButton = this._userService.user.username === "";
+        console.log(this._userService.user);
         this.user$ = this._userService.user$;
         this.user$.subscribe((data) => {
-            this.user = data;
             this.showButton = false;
         });
     }
