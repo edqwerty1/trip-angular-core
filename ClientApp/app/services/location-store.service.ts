@@ -5,6 +5,7 @@ import { Observable, Observer } from 'rxjs/RX';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/startWith';
 import { Hosts } from './hosts';
+import {UserStoreService} from './user.service';
 
 @Injectable()
 export class LocationStoreService {
@@ -14,19 +15,32 @@ export class LocationStoreService {
         locations: ILocation[];
     };
 
-    constructor(private _http: Http) {
+    constructor(private _http: Http, private _userService: UserStoreService) {
         this._dataStore = { locations: [] };
 
         this.locations$ = new Observable<ILocation[]>(observer => this._locationsObserver = observer)
             .startWith(this._dataStore.locations)
             .share();
-    };
+};
 
     addLocation(location: ILocation) {
         let body = JSON.stringify(location);
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        headers.append('token', localStorage.getItem('jwt')!); // TODO replace with using userstore
+        headers.append('token', this._userService.user.token);
+        return this._http.put(`${Hosts.Host}/Location/Location`, body, { headers: headers })
+
+            .toPromise()
+            .then(() => {
+                this.loadLocations();
+            });
+    }
+
+    editLocation(location: ILocation) {
+        let body = JSON.stringify(location);
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('token', this._userService.user.token);
         return this._http.put(`${Hosts.Host}/Location/Location`, body, { headers: headers })
 
             .toPromise()
@@ -50,9 +64,9 @@ export class LocationStoreService {
     upVote(locationId: string) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        headers.append('token', localStorage.getItem('jwt')!); // TODO replace with using userstore
+        headers.append('token', this._userService.user.token); 
         this._http.post(`${Hosts.Host}/location/${locationId}/upVote`,
-            JSON.stringify({ 'userId': localStorage.getItem('userId') }),
+            JSON.stringify({ 'userId': this._userService.user.id }),
             { headers: headers })
             .subscribe(data => {
                 this.loadLocations();
@@ -63,9 +77,9 @@ export class LocationStoreService {
     downVote(locationId: string) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        headers.append('token', localStorage.getItem('jwt')!); // TODO replace with using userstore
+        headers.append('token', this._userService.user.token); 
         this._http.post(`${Hosts.Host}/location/${locationId}/downVote`,
-            JSON.stringify({ 'userId': localStorage.getItem('userId') }),
+            JSON.stringify({ 'userId': this._userService.user.id }),
             { headers: headers })
             .subscribe(data => {
                 this.loadLocations();

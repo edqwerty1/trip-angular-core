@@ -19,6 +19,7 @@ import { RegisterButtonComponent } from './components/registerbutton/register-bu
 import { AddLocationButtonComponent } from './components/addlocation/add-location.component';
 import { LoginModalComponent } from './components/loginmodal/login-modal.component';
 import { AddLocationModalComponent } from './components/addlocationmodal/add-location-modal.component';
+import { EditLocationModalComponent } from './components/editlocationmodal/edit-location-modal.component';
 import { RegisterModalComponent } from './components/registermodal/register-modal.component';
 import { LocationsComponent } from './components/locations/locations.component';
 import { LocationThumbnailComponent } from './components/locationthumbnail/location-thumbnail.component';
@@ -50,7 +51,8 @@ import { MapService } from './services/map.service';
         AddLocationButtonComponent,
         AddLocationModalComponent,
         MapComponent,
-        ShowMapComponent
+        ShowMapComponent,
+        EditLocationModalComponent
     ],
     imports: [
         CommonModule,
@@ -77,7 +79,8 @@ import { MapService } from './services/map.service';
     entryComponents: [
         LoginModalComponent,
         RegisterModalComponent,
-        AddLocationModalComponent
+        AddLocationModalComponent,
+        EditLocationModalComponent
     ]
 
 })

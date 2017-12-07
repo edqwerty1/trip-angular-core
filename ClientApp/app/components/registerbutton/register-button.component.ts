@@ -20,6 +20,10 @@ export class RegisterButtonComponent implements OnInit {
         const modalRef = this.modalService.open(RegisterModalComponent);
     }
 
+    logout(){
+        this._userService.logout();
+    }
+
     ngOnInit() {
         this.showButton = this._userService.user.username === "";
         console.log(this._userService.user);
