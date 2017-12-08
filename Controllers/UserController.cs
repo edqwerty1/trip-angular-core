@@ -69,5 +69,27 @@ namespace Trip_Angular4Core.Controllers
             _context.SaveChanges();
             return Ok(user);
         }
+
+        [HttpPost("[action]")]
+        public IActionResult Logout()
+        {
+            var tokenString = Request.Headers["token"];
+
+            if (String.IsNullOrWhiteSpace(tokenString))
+                return Ok();
+
+            Guid token;
+            Guid.TryParse(tokenString, out token);
+
+            if (token == null)
+                return Ok();
+
+            if (!Session.TokenDictionary.ContainsKey(token))
+                return Ok();
+
+            Session.TokenDictionary.Remove(token);
+
+            return Ok();
+        }
     }
 }

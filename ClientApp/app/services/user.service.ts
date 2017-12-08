@@ -17,18 +17,28 @@ export class UserStoreService {
     };
 
     constructor(private _http: Http, @Inject(PLATFORM_ID) private platformId: Object) {
-        this._dataStore = { user: 
+ 
+        
+    var newUser : IUser = 
                 { 
                     displayName: "", 
                     id: "", 
-                    username: "" 
+                    username: "" ,
+                    token: ""
+                };
+
+        if (isPlatformBrowser(this.platformId)) {
+            this._dataStore = { user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : newUser}
+        }
+        else {
+            this._dataStore = { user: { 
+                    displayName: "", 
+                    id: "", 
+                    username: "" ,
+                    token: ""
                 }};
-                if (isPlatformBrowser(this.platformId)) {
-        this._dataStore.user.displayName = localStorage.getItem('displayname') ? localStorage.getItem('displayname')! : "";
-        this._dataStore.user.username = localStorage.getItem('username') ? localStorage.getItem('username')! : "";
-        this._dataStore.user.id = localStorage.getItem('userid')? localStorage.getItem('userid')! : "";
-                }
-        this.user$ = new Observable<IUser>(observer => { console.log("obs"); this._userObserver = observer})
+        }
+        this.user$ = new Observable<IUser>(observer => { this._userObserver = observer})
             .startWith(this._dataStore.user)
             .share();
     };
@@ -48,15 +58,13 @@ export class UserStoreService {
             });
     }
 
-    private updateUser(user: any){
-        localStorage.setItem('jwt', user.token);
-        localStorage.setItem('userId', user.id);
-        localStorage.setItem('username', user.username);
-        localStorage.setItem('displayname', user.displayName);
+    private updateUser(user: IUser){
+        localStorage.setItem('user', JSON.stringify(user));
 
         this._dataStore.user.displayName = user.displayName;
         this._dataStore.user.username = user.username;
         this._dataStore.user.id = user.id;
+        this._dataStore.user.token = user.token;
         this._userObserver.next(this._dataStore.user);
     }
 
@@ -69,6 +77,27 @@ export class UserStoreService {
             .toPromise()
             .then(response => {
                 this.updateUser(response);
+            }
+            );
+    }
+
+    logout(): Promise<void> {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('token', this.user.token);
+        return this._http.post(`${Hosts.Host}/user/logout`, null, { headers: headers })
+            
+            .toPromise()
+            .then(response => {
+                var newUser : IUser = 
+                { 
+                    displayName: "", 
+                    id: "", 
+                    username: "" ,
+                    token: ""
+                };
+                this.updateUser(newUser);
+                localStorage.removeItem('user');
             }
             );
     }
