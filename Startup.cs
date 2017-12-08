@@ -30,10 +30,20 @@ namespace TripAngular4Core
                        .AddJsonFile("appsettings.json")
                        .Build();
             var connection = config.GetConnectionString("DefaultConnection");
-            // services.AddDbContext<Context>(options => options.UseSqlServer(connection));
-            services.AddDbContext<Context>(options => options.UseSqlite("Data Source=blogging.db"));
+            services.AddDbContext<Context>(options => options.UseSqlServer(connection));
             services.AddMvc();
         }
+        //// Development ConfigureServices
+        //public void ConfigureDevelopmentServices(IServiceCollection services)
+        //{
+        //    var config = new ConfigurationBuilder()
+        //               .SetBasePath(Directory.GetCurrentDirectory())
+        //               .AddJsonFile("appsettings.json")
+        //               .Build();
+        //    var connection = config.GetConnectionString("DefaultConnection");
+        //    services.AddDbContext<Context>(options => options.UseSqlite("Data Source=blogging.db"));
+        //    services.AddMvc();
+        //}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

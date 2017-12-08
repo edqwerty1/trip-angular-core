@@ -12,6 +12,10 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 
+import { UserStoreService } from './services/user.service';
+import { LocationStoreService } from './services/location-store.service';
+import { MapService } from './services/map.service';
+
 import { TripComponent } from './components/trip/trip.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { LoginButtonComponent } from './components/loginbutton/login-button.component';
@@ -27,9 +31,7 @@ import { MapComponent } from './components/map/map.component';
 import { ShowMapComponent } from './components/showmap/show-map.component';
 
 
-import { UserStoreService } from './services/user.service';
-import { LocationStoreService } from './services/location-store.service';
-import { MapService } from './services/map.service';
+
 
 @NgModule({
     declarations: [
