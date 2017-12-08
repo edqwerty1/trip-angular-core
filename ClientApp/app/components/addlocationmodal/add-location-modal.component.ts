@@ -33,7 +33,7 @@ export class AddLocationModalComponent implements OnInit {
             'address3': new FormControl(''),
             'address4': new FormControl(''),
             'address5': new FormControl(''),
-            'postcode': new FormControl('')
+            'postCode': new FormControl('')
         });
     }
 
@@ -58,7 +58,7 @@ export class AddLocationModalComponent implements OnInit {
     get address3() { return this.addLocationFormModel.get('address3'); }
     get address4() { return this.addLocationFormModel.get('address4'); }
     get address5() { return this.addLocationFormModel.get('address5'); }
-    get postcode() { return this.addLocationFormModel.get('postcode'); }
+    get postCode() { return this.addLocationFormModel.get('postCode'); }
 
     addLocation() {
 
@@ -71,7 +71,7 @@ export class AddLocationModalComponent implements OnInit {
                 address3: this.addLocationFormModel.get('address3')!.value,
                 address4: this.addLocationFormModel.get('address4')!.value,
                 address5: this.addLocationFormModel.get('address5')!.value,
-                postcode: this.addLocationFormModel.get('postcode')!.value,
+                postCode: this.addLocationFormModel.get('postCode')!.value,
             },
             price: this.addLocationFormModel.get('price')!.value,
             imageUrl: this.addLocationFormModel.get('imageUrl')!.value,

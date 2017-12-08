@@ -13,15 +13,15 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class LocationThumbnailComponent {
     private _location: ILocation;
-    constructor(private _locationsStore: LocationStoreService) {
-    }
 
     constructor(private _locationsStore: LocationStoreService, private modalService: NgbModal) {
     }
 
-     editLocation() {
+    editLocation() {
         const modalRef = this.modalService.open(EditLocationModalComponent);
         modalRef.componentInstance.location = location;
+    }
+
     @Input()
     set location(location: ILocation) {
         this._location = location;

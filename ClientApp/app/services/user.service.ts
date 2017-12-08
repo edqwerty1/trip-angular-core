@@ -17,33 +17,35 @@ export class UserStoreService {
     };
 
     constructor(private _http: Http, @Inject(PLATFORM_ID) private platformId: Object) {
- 
-        
-    var newUser : IUser = 
-                { 
-                    displayName: "", 
-                    id: "", 
-                    username: "" ,
-                    token: ""
-                };
+
+
+        var newUser: IUser =
+            {
+                displayName: "",
+                id: "",
+                username: "",
+                token: ""
+            };
 
         if (isPlatformBrowser(this.platformId)) {
-            this._dataStore = { user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : newUser}
+            this._dataStore = { user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : newUser }
         }
         else {
-            this._dataStore = { user: { 
-                    displayName: "", 
-                    id: "", 
-                    username: "" ,
+            this._dataStore = {
+                user: {
+                    displayName: "",
+                    id: "",
+                    username: "",
                     token: ""
-                }};
+                }
+            };
         }
-        this.user$ = new Observable<IUser>(observer => { this._userObserver = observer})
+        this.user$ = new Observable<IUser>(observer => { this._userObserver = observer })
             .startWith(this._dataStore.user)
             .share();
     };
 
-    get user() {return this._dataStore.user;};
+    get user() { return this._dataStore.user; };
 
 
     login(username: string, password: string): Promise<void> {
@@ -58,7 +60,7 @@ export class UserStoreService {
             });
     }
 
-    private updateUser(user: IUser){
+    private updateUser(user: IUser) {
         localStorage.setItem('user', JSON.stringify(user));
 
         this._dataStore.user.displayName = user.displayName;
@@ -86,16 +88,16 @@ export class UserStoreService {
         headers.append('Content-Type', 'application/json');
         headers.append('token', this.user.token);
         return this._http.post(`${Hosts.Host}/user/logout`, null, { headers: headers })
-            
+
             .toPromise()
             .then(response => {
-                var newUser : IUser = 
-                { 
-                    displayName: "", 
-                    id: "", 
-                    username: "" ,
-                    token: ""
-                };
+                var newUser: IUser =
+                    {
+                        displayName: "",
+                        id: "",
+                        username: "",
+                        token: ""
+                    };
                 this.updateUser(newUser);
                 localStorage.removeItem('user');
             }

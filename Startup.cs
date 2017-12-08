@@ -15,9 +15,15 @@ namespace TripAngular4Core
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+            .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -25,25 +31,15 @@ namespace TripAngular4Core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var config = new ConfigurationBuilder()
-                       .SetBasePath(Directory.GetCurrentDirectory())
-                       .AddJsonFile("appsettings.json")
-                       .Build();
-            var connection = config.GetConnectionString("DefaultConnection");
-            services.AddDbContext<Context>(options => options.UseSqlServer(connection));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
         }
         //// Development ConfigureServices
-        //public void ConfigureDevelopmentServices(IServiceCollection services)
-        //{
-        //    var config = new ConfigurationBuilder()
-        //               .SetBasePath(Directory.GetCurrentDirectory())
-        //               .AddJsonFile("appsettings.json")
-        //               .Build();
-        //    var connection = config.GetConnectionString("DefaultConnection");
-        //    services.AddDbContext<Context>(options => options.UseSqlite("Data Source=blogging.db"));
-        //    services.AddMvc();
-        //}
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            services.AddDbContext<Context>(options => options.UseSqlite("Data Source=blogging.db"));
+            services.AddMvc();
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

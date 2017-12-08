@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/RX';
 import { LocationStoreService } from '../../services/location-store.service';
+import { UserStoreService } from '../../services/user.service';
 import { ILocation } from '../../models/locations';
 
 @Component({
@@ -13,14 +14,14 @@ export class VoteComponent implements OnInit {
     score: number;
     upVoted: boolean;
     downVoted: boolean;
-    constructor(private _locationsStore: LocationStoreService) {
+    constructor(private _locationsStore: LocationStoreService, private _userStore: UserStoreService ) {
 
     }
 
     ngOnInit() {
         this.score = this.location.upVotes.length - this.location.downVotes.length;
-        this.upVoted = !this.location.upVotes.every((id) => id !== localStorage.getItem('userId'));
-        this.downVoted = !this.location.downVotes.every((id) => id !== localStorage.getItem('userId'));
+        this.upVoted = !this.location.upVotes.every((id) => id !== this._userStore.user.id);
+        this.downVoted = !this.location.downVotes.every((id) => id !== this._userStore.user.id);
     }
 
     upVote() {

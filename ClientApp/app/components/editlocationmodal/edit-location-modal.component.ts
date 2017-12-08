@@ -34,7 +34,7 @@ export class EditLocationModalComponent implements OnInit {
             'address3': new FormControl(this.location.address.address3),
             'address4': new FormControl(this.location.address.address4),
             'address5': new FormControl(this.location.address.address5),
-            'postcode': new FormControl(this.location.address.postcode)
+            'postCode': new FormControl(this.location.address.postCode)
         });
     }
 
@@ -59,7 +59,7 @@ export class EditLocationModalComponent implements OnInit {
     get address3() { return this.editLocationFormModel.get('address3'); }
     get address4() { return this.editLocationFormModel.get('address4'); }
     get address5() { return this.editLocationFormModel.get('address5'); }
-    get postcode() { return this.editLocationFormModel.get('postcode'); }
+    get postCode() { return this.editLocationFormModel.get('postCode'); }
 
     editLocation() {
 
@@ -72,7 +72,7 @@ export class EditLocationModalComponent implements OnInit {
                 address3: this.editLocationFormModel.get('address3')!.value,
                 address4: this.editLocationFormModel.get('address4')!.value,
                 address5: this.editLocationFormModel.get('address5')!.value,
-                postcode: this.editLocationFormModel.get('postcode')!.value,
+                postCode: this.editLocationFormModel.get('postCode')!.value,
             },
             price: this.editLocationFormModel.get('price')!.value,
             imageUrl: this.editLocationFormModel.get('imageUrl')!.value,
