@@ -21,7 +21,7 @@ namespace Trip_Angular4Core.Controllers
         {
             _context = context;
         }
- [HttpGet("[action]")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> Locations()
         {
             var locations = await _context.Locations.Include(t => t.DownVotes).Include(t => t.UpVotes).Include(t => t.Address).ToListAsync();
