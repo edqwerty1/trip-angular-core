@@ -77,6 +77,7 @@ namespace TripAngular4Core.Domain
         public string Name { get; set; }
         public string Url { get; set; }
         public User Owner { get; set; }
+        public Guid OwnerId { get; set; }
         public bool Public { get; set; }
         public string Password { get; set; }
         public ICollection<UserList> Users { get; set; }

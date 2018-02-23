@@ -25,16 +25,17 @@ namespace Trip_Angular4Core.Controllers
         public async Task<IActionResult> Lists(Guid userId)
         {
             var lists = await _context.Lists.Where(t => t.Owner.Id == userId).ToListAsync();
-            var locationDtos = lists.Select(t => new ListDto
+            var listDtos = lists.Select(t => new ListDto
             {
                 Id = t.Id,
-                Name = t.Name
+                Name = t.Name,
+                OwnerId = t.OwnerId
             }).ToList();
-            return Ok(locationDtos);
+            return Ok(listDtos);
         }
 
-        [HttpPut("[action]")]
-        public IActionResult Location([FromBody]LocationDto locationDto)
+        [HttpPost("[action]")]
+        public IActionResult Create([FromBody]ListDto listDto)
         {
             var tokenString = Request.Headers["token"];
 
@@ -49,38 +50,17 @@ namespace Trip_Angular4Core.Controllers
 
             if (!Session.TokenDictionary.ContainsKey(token))
                 return Unauthorized();
-
-
-            var location = _context.Locations.Include(t => t.Address).FirstOrDefault(t => t.Id == locationDto.Id.Value);
-
-            if (location == null)
+            var owner = _context.Users.First(t => t.Id == listDto.OwnerId);
+            var list = new List
             {
-                location = new Location { Id = Guid.NewGuid() };
-                _context.Locations.Add(location);
-            }
-
-            if (location.Address == null)
-                location.Address = locationDto.Address ?? new Address();
-            else
-            {
-                location.Address.Address1 = locationDto.Address.Address1;
-                location.Address.Address2 = locationDto.Address.Address2;
-                location.Address.Address3 = locationDto.Address.Address3;
-                location.Address.Address4 = locationDto.Address.Address4;
-                location.Address.Address5 = locationDto.Address.Address5;
-                location.Address.PostCode = locationDto.Address.PostCode;
-            }
-            location.ImageUrl = locationDto.ImageUrl;
-            location.Name = locationDto.Name;
-            location.Price = locationDto.Price;
-            location.Nights = locationDto.Nights;
-
-            if (location.Id == Guid.Empty)
-                location.Id = Guid.NewGuid();
-
-            if (location.Address?.Id == Guid.Empty)
-                location.Address.Id = Guid.NewGuid();
-
+                Name = listDto.Name,
+                OwnerId = listDto.OwnerId,
+                Password = "test",
+                Public = false,
+                
+            };
+            owner.MemberOfLists.Add(new UserList { List = list, User = owner });
+            _context.Lists.Add(list);
             _context.SaveChanges();
 
             return Ok();
